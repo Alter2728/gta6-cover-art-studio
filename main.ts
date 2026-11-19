@@ -3,11 +3,13 @@
 // static files a desktop browser loads offline (app/index.html and its ES
 // modules, the vendored Anton font, two sample photos, no network request).
 // This program hands the entry in: it copies app/ and screenshots/ from
-// beside this file into the output directory and writes /output/dossier.json
-// with the vendored make.fun library, so the judge can read the entry.
+// beside this file into the output directory and writes
+// /output/dossier.json with the vendored make.fun library, so the judge can
+// read the entry.
 //
 // Serve the app locally with `node serve.ts`, then open http://localhost:8080.
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
+//
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -15,26 +17,39 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-app.ts';
 
-const repoRoot = fileURLToPath(new URL('.', import.meta.url));
-const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const repoDir = fileURLToPath(new URL('.', import.meta.url));
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-mkdirSync(outputDir, { recursive: true });
-cpSync(join(repoRoot, 'app'), join(outputDir, 'app'), { recursive: true });
-mkdirSync(join(outputDir, 'screenshots'), { recursive: true });
-if (existsSync(join(repoRoot, 'screenshots'))) {
-  cpSync(join(repoRoot, 'screenshots'), join(outputDir, 'screenshots'), { recursive: true });
+function copyTree(from, to) {
+  mkdirSync(to, { recursive: true });
+  cpSync(from, to, { recursive: true });
 }
 
-// The gate's caps, from the kit's reference/gate.json: the dossier text is
-// capped at 160 KiB; the other caps make this program fail exactly where the
-// scorer would refuse the entry (more than 4 screenshots, one over 256 KiB;
-// app/ over 993 files or 48 MiB, or a path under app/ over 1000 bytes — app/
-// shares /output's own 1000-entry cap with screenshots/ and dossier.json).
-const dossier = buildDossier(outputDir, {
-  text_max_bytes: 163840,
-  screenshots: { max: 4, max_bytes: 262144 },
-  app_max_files: 993,
-  app_max_bytes: 50331648,
-  app_path_max_bytes: 1000,
-});
-writeFileSync(join(outputDir, 'dossier.json'), dossier);
+function buildEntry() {
+  mkdirSync(outDir, { recursive: true });
+  copyTree(join(repoDir, 'app'), join(outDir, 'app'));
+  const shotsDir = join(repoDir, 'screenshots');
+  if (existsSync(shotsDir)) {
+    copyTree(shotsDir, join(outDir, 'screenshots'));
+  } else {
+    mkdirSync(join(outDir, 'screenshots'), { recursive: true });
+  }
+
+  // The gate's caps, from the kit's reference/gate.json: the dossier text
+  // is capped at 160 KiB; the other caps make this program fail exactly
+  // where the scorer would refuse the entry (more than 4 screenshots, one
+  // over 256 KiB; app/ over 993 files or 48 MiB, or a path under app/ over
+  // 1000 bytes — app/ shares /output's own 1000-entry cap with
+  // screenshots/ and dossier.json).
+  const dossier = buildDossier(outDir, {
+    text_max_bytes: 163840,
+    screenshots: { max: 4, max_bytes: 262144 },
+    app_max_files: 993,
+    app_max_bytes: 50331648,
+    app_path_max_bytes: 1000,
+  });
+  writeFileSync(join(outDir, 'dossier.json'), dossier);
+  console.log(`wrote ${join(outDir, 'dossier.json')} (${dossier.length} bytes)`);
+}
+
+buildEntry();
