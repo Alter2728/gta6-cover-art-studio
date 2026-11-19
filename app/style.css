@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Anton';
+  src: url('./fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body { margin: 0; min-height: 100%; background: #1d0f2e; color: #f5eefc; font: 15px/1.45 system-ui, sans-serif; }
+.app { display: flex; gap: 28px; align-items: flex-start; justify-content: center; padding: 24px; box-sizing: border-box; }
+.controls { display: flex; flex-direction: column; gap: 14px; width: 320px; background: #2b0a3d; border: 1px solid #4a2364; border-radius: 14px; padding: 20px; box-sizing: border-box; }
+.controls h1 { margin: 0; font-family: 'Anton', sans-serif; font-size: 30px; letter-spacing: 1px; color: #ffd76a; }
+.tag { margin: 0; color: #d9c6ee; }
+.hint { margin: 0; color: #b9a3d4; font-size: 13px; }
+fieldset { border: 1px solid #4a2364; border-radius: 10px; padding: 10px; margin: 0; }
+legend { color: #ffb3d9; font-weight: 700; padding: 0 6px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+label.check { flex-direction: row; align-items: center; }
+input[type=text] { font: inherit; padding: 8px; border: 1px solid #6b3f92; border-radius: 6px; background: #1d0f2e; color: #f5eefc; }
+input[type=range] { width: 100%; accent-color: #ff2e88; }
+button { font: inherit; font-weight: 700; padding: 9px 12px; border: 1px solid #6b3f92; border-radius: 8px; background: #3d1a5c; color: #f5eefc; cursor: pointer; }
+button:hover { background: #4d2373; }
+button.active { background: #ff2e88; border-color: #ff2e88; color: #fff; }
+button.primary { background: linear-gradient(90deg, #ff2e88, #ff6a3d, #ffc53d); border: 0; color: #1d0f2e; }
+.upload input { font: inherit; }
+.preview { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+canvas { width: min(72vh, 58vw); height: auto; aspect-ratio: auto; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); border-radius: 4px; outline: none; cursor: grab; }
+canvas:focus { box-shadow: 0 0 0 3px #ff2e88, 0 12px 40px rgba(0, 0, 0, 0.5); }
+#status { margin: 0; color: #ffd76a; font-size: 13px; min-height: 1.4em; }
+body.shot-cover .controls { display: none; }
+body.shot-cover .app { padding: 0; }
+body.shot-cover .preview { width: 100%; }
+body.shot-cover .preview .hint { display: none; }
+body.shot-cover canvas { width: 100vw; height: 100vh; object-fit: contain; box-shadow: none; border-radius: 0; background: #2b0a3d; }

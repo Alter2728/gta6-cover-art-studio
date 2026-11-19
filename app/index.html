@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunset Cover Studio — GTA 6-style cover art maker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%232b0a3d'/%3E%3Ccircle cx='8' cy='10' r='5' fill='%23ffc53d'/%3E%3Crect y='10' width='16' height='6' fill='%23ff2e88'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <section class="controls" aria-label="Cover editor controls">
+    <h1>Sunset Cover Studio</h1>
+    <p class="tag">Turn your photos into GTA-style cover art. Photos stay on your machine — nothing is uploaded.</p>
+
+    <label class="upload">Upload photos (up to 3)
+      <input id="photos" type="file" accept="image/*" multiple>
+    </label>
+    <p id="photo-count" class="hint">0 / 3 photos</p>
+
+    <fieldset>
+      <legend>Layout</legend>
+      <div class="row">
+        <button type="button" data-layout="strip3" class="active">Sunset Strip</button>
+        <button type="button" data-layout="full1">Full Bleed</button>
+        <button type="button" data-layout="split2">Split Screen</button>
+        <button type="button" data-layout="grid4">Four Corners</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Colour grade</legend>
+      <div class="row">
+        <button type="button" data-grade="vice" class="active">Vice Sunset</button>
+        <button type="button" data-grade="pastel">Pastel Dawn</button>
+        <button type="button" data-grade="neon">Neon Nights</button>
+        <button type="button" data-grade="gold">Palm Gold</button>
+      </div>
+      <label>Grade intensity <span id="intensity-value">55%</span>
+        <input id="intensity" type="range" min="0" max="100" value="55">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Headline ink</legend>
+      <div class="row">
+        <button type="button" data-ink="white" class="active">White</button>
+        <button type="button" data-ink="gold">Gold</button>
+        <button type="button" data-ink="neon">Neon Pink</button>
+        <button type="button" data-ink="midnight">Midnight</button>
+      </div>
+      <label>Neon glow <span id="glow-value">60%</span>
+        <input id="glow" type="range" min="0" max="100" value="60">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Headline</legend>
+      <label>Headline <input id="headline" type="text" maxlength="40" value="VICE CITY"></label>
+      <label>Tagline <input id="tagline" type="text" maxlength="60" value="Welcome back to Vice City"></label>
+      <div class="row">
+        <button type="button" data-preset="VICE CITY" class="active">VICE CITY</button>
+        <button type="button" data-preset="SUNSET DRIVE">SUNSET DRIVE</button>
+        <button type="button" data-preset="NEON RIDE">NEON RIDE</button>
+        <button type="button" data-preset="PIER PRESSURE">PIER PRESSURE</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Effects</legend>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="vignette" type="checkbox" checked> Vignette</label>
+    </fieldset>
+
+    <button id="shuffle" type="button" class="primary">Shuffle</button>
+
+    <fieldset>
+      <legend>Export size</legend>
+      <div class="row">
+        <button type="button" data-size="1080x1080" class="active">1080 × 1080</button>
+        <button type="button" data-size="1080x1350">1080 × 1350</button>
+        <button type="button" data-size="1920x1080">1920 × 1080</button>
+      </div>
+    </fieldset>
+
+    <div class="row">
+      <button type="button" data-export="1080x1080" class="primary">Export 1080 × 1080</button>
+      <button type="button" data-export="1080x1350" class="primary">Export 1080 × 1350</button>
+      <button type="button" data-export="1920x1080" class="primary">Export 1920 × 1080</button>
+    </div>
+    <p id="status" role="status">Drag a panel to pan, scroll to zoom, arrow keys nudge.</p>
+  </section>
+  <section class="preview" aria-label="Live cover preview">
+    <canvas id="cover" width="1080" height="1080" tabindex="0" aria-label="The cover preview"></canvas>
+    <p class="hint">Click a panel to select it, then drag to pan, scroll to zoom, or use the arrow keys.</p>
+  </section>
+</main>
+<script type="module" src="./src/main.mjs"></script>
+</body>
+</html>
