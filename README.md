@@ -1,10 +1,12 @@
 # Sunset Cover Studio
 
 A GTA 6-style cover art maker for the make.fun bounty
-[gta6-cover-art-01](https://make.fun/c/gta6-cover-art-01/) — built for
+[gta6-cover-art-01](https://make.fun/bounty/gta6-cover-art-01) — built for
 [@altertera28](https://make.fun/u/altertera28).
 
-![make.fun bounty](https://img.shields.io/badge/make.fun-gta6--cover--art--01-ff2e88)
+[![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/Alter2728/gta6-cover-art-studio/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
+[![reward](https://make.fun/badge/gta6-cover-art-01/Alter2728/gta6-cover-art-studio/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
 ## What it does
 
